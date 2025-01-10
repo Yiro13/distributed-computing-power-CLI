@@ -1,10 +1,11 @@
 import click
 from neuroCLI.files import filemanager
+from neuroCLI.com.serverCom import status
 
 
 @click.command()
 @click.option("--m", help="h to be a host, c to be a client")
-def init(m) -> None:
+def init(m: str) -> None:
     if m not in {"host", "client"}:
         click.echo(
             click.style(
@@ -17,6 +18,9 @@ def init(m) -> None:
         """
             Initializing user on platform
         """
+        clientID = "Yiro-DEEXCCJ"
+        status.run(clientID)
+
         role = "Host" if m == "host" else "Client"
         click.echo(click.style(f"Authorized {role}", bold=True, fg="green"))
 
