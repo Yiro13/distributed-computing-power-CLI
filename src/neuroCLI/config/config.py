@@ -1,6 +1,5 @@
 import click
 from neuroCLI.files import filemanager
-from neuroCLI.com.serverCom import status
 
 
 @click.command()
@@ -14,15 +13,13 @@ def init(m: str) -> None:
         )
         return
 
-    if filemanager.verifyToken():
-        """
-            Initializing user on platform
-        """
-        clientID = "Yiro-DEEXCCJ"
-        status.run(clientID)
+    user = filemanager.verifyToken()
 
+    if user:
         role = "Host" if m == "host" else "Client"
-        click.echo(click.style(f"Authorized {role}", bold=True, fg="green"))
+        click.echo(
+            click.style(f"Authorized {role}, User: {user}", bold=True, fg="green")
+        )
 
     """else:
         username = click.prompt("NeuroGrid username", type=str)

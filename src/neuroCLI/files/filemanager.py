@@ -1,4 +1,5 @@
 import os
+from neuroCLI.com.serverCom.tokenManager import sendToken
 
 
 def verifyToken() -> bool:
@@ -8,12 +9,10 @@ def verifyToken() -> bool:
         with open(file_path, "r") as file:
             token = file.readline().strip()
 
-        """
-            Database validation of token
-        """
+        user = sendToken.verifyUserToken(token)
 
-        if token == "TEST_TOKEN":
-            return True
+        if user:
+            return user
 
     else:
         return False
