@@ -21,8 +21,11 @@ def init(m: str) -> None:
             click.style(f"Authorized {role}, User: {user}", bold=True, fg="green")
         )
 
-    """else:
-        username = click.prompt("NeuroGrid username", type=str)
+    else:
+        email = click.prompt("NeuroGrid email", type=str)
         password = click.prompt(
             "NeuroGrid password", hide_input=True, confirmation_prompt=True
-        )"""
+        )
+
+        if not filemanager.writeToken(email, password):
+            click.echo(click.style("Invalid credentials", bold=True, fg="red"))
