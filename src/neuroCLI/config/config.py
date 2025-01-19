@@ -1,5 +1,6 @@
 import click
 from neuroCLI.files import filemanager
+from neuroCLI.config import setup
 
 
 @click.command()
@@ -17,9 +18,9 @@ def init(m: str) -> None:
 
     if user:
         role = "Host" if m == "host" else "Client"
-        click.echo(
-            click.style(f"Authorized {role}, User: {user}", bold=True, fg="green")
-        )
+
+        if role == "Host":
+            setup.setup(user, role)
 
     else:
         email = click.prompt("NeuroGrid email", type=str)
@@ -29,3 +30,5 @@ def init(m: str) -> None:
 
         if not filemanager.writeToken(email, password):
             click.echo(click.style("Invalid credentials", bold=True, fg="red"))
+        else:
+            click.echo(click.style("Please initialize again", bold=True, fg="red"))
