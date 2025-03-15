@@ -1,6 +1,7 @@
 import click
 from neuroCLI.files import filemanager
 from neuroCLI.config import setup
+from neuroCLI.com.serverCom.tokenManager import status
 
 
 @click.command()
@@ -21,6 +22,8 @@ def init(m: str) -> None:
 
         if role == "Host":
             setup.setup(user, role)
+
+            status.startStatusPing(user)
 
     else:
         email = click.prompt("NeuroGrid email", type=str)
